@@ -15,10 +15,12 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const isAuthenticated = false;
+  const isAuthenticated = true;
   const user = { role: "admin" };
 
-  const logoutHandler = () => {};
+  const logoutHandler = () => {
+    onClose();
+  };
 
   return (
     <>
@@ -29,6 +31,7 @@ const Header = () => {
         width={12}
         height={12}
         rounded={"full"}
+        zIndex={"overlay"}
         position={"fixed"}
         top="6"
         left="6"
@@ -41,11 +44,23 @@ const Header = () => {
           <DrawerHeader borderBottomWidth={"1px"}>COURSE BUNDLER</DrawerHeader>
           <DrawerBody>
             <VStack spacing={4} alignItems={"flex-start"}>
-              <LinkButtons url="/" title="Home" />
-              <LinkButtons url="/courses" title="Browse Courses" />
-              <LinkButtons url="/request" title="Request a Course" />
-              <LinkButtons url="/contact" title="Contact Us" />
-              <LinkButtons url="/about" title="About" />
+              <LinkButtons onClose={onClose} url="/" title="Home" />
+              <LinkButtons
+                onClose={onClose}
+                url="/courses"
+                title="Browse Courses"
+              />
+              <LinkButtons
+                onClose={onClose}
+                url="/request"
+                title="Request a Course"
+              />
+              <LinkButtons
+                onClose={onClose}
+                url="/contact"
+                title="Contact Us"
+              />
+              <LinkButtons onClose={onClose} url="/about" title="About" />
               <HStack
                 justifyContent={"space-evenly"}
                 position={"absolute"}
@@ -56,7 +71,7 @@ const Header = () => {
                   <>
                     <VStack>
                       <HStack>
-                        <Link to="/profile">
+                        <Link to="/profile" onClick={onClose}>
                           <Button variant={"ghost"} colorScheme="yellow">
                             Profile
                           </Button>
@@ -67,7 +82,7 @@ const Header = () => {
                         </Button>
                       </HStack>
                       {user && user.role === "admin" && (
-                        <Link to="/admin/dashboard">
+                        <Link onClick={onClose} to="/admin/dashboard">
                           <Button variant={"ghost"} colorScheme="purple">
                             <RiDashboardFill style={{ margin: "4px" }} />
                             Dashboard
@@ -78,11 +93,11 @@ const Header = () => {
                   </>
                 ) : (
                   <>
-                    <Link to="/login">
+                    <Link onClick={onClose} to="/login">
                       <Button colorScheme="yellow">Login</Button>
                     </Link>
                     <p>Or</p>
-                    <Link to="/register">
+                    <Link onClick={onClose} to="/register">
                       <Button colorScheme="yellow">SignUp</Button>
                     </Link>
                   </>
@@ -97,9 +112,9 @@ const Header = () => {
 };
 export default Header;
 
-function LinkButtons({ url = "/", title = "Home" }) {
+function LinkButtons({ url = "/", title = "Home", onClose }) {
   return (
-    <Link to={url}>
+    <Link to={url} onClick={onClose}>
       <Button variant={"ghost"}>{title}</Button>
     </Link>
   );
