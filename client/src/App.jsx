@@ -16,6 +16,8 @@ import RequestCourse from "./components/requestCourse/RequestCourse.jsx";
 import PaymentSuccess from "./components/payments/PaymentSuccess.jsx";
 import PaymentFail from "./components/payments/PaymentFail.jsx";
 import NotFound from "./components/layout/not_found/NotFound.jsx";
+import ChangePassword from "./components/profile/ChangePassword.jsx";
+import UpdateProfile from "./components/profile/UpdateProfile.jsx";
 const App = () => {
   window.addEventListener("contextmenu", (e) => {
     e.preventDefault();
@@ -35,6 +37,8 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/updateprofile" element={<UpdateProfile />} />
+        <Route path="/changepassword" element={<ChangePassword />} />
         <Route path="/request" element={<RequestCourse />} />
         <Route path="/subscribe" element={<Subscribe />} />
         <Route path="/payment_success" element={<PaymentSuccess />} />
